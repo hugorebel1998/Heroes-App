@@ -1,8 +1,16 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { PageErrorComponent } from './shared/page-error/page-error.component';
+import { AuthModule } from './auth/auth.module';
+import { HeroesModule } from './heroes/heroes.module';
 
-const routes:Routes = [
+const routes: Routes = [
+  {
+    path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => AuthModule)
+  },
+  {
+    path: 'heroes', loadChildren: () => import('./heroes/heroes.module').then(m => HeroesModule)
+  },
   {
     path: 'pagina-404', component: PageErrorComponent
   },
@@ -18,7 +26,7 @@ const routes:Routes = [
   imports: [
     RouterModule.forRoot(routes)
   ],
-  exports:[
+  exports: [
     RouterModule
   ]
 })
