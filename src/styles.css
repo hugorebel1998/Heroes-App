@@ -6,3 +6,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .espacio{
     flex: 1 1 auto;
 }
+.card-heroe{
+    min-height: 840px ;
+}
+
+.item{
+    align-self:flex-end;
+}

@@ -13,6 +13,9 @@ const routes: Routes = [
      children:
       [
         {
+          path: 'listadoHeroes', component: ListadoComponent
+        },
+        {
           path: 'agregar', component: AgregarComponent
         },
         {
@@ -25,10 +28,8 @@ const routes: Routes = [
           path: ':id', component: HeroeComponent
         },
         {
-          path: 'listado', component: ListadoComponent
-        },
-        
-
+          path: '**', redirectTo:'listadoHeroes'
+        }
       ]
   }
 ]
