@@ -2,12 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AgregarComponent } from './pages/agregar/agregar.component';
 import { BuscararComponent } from './pages/buscarar/buscarar.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { HeroeComponent } from './pages/heroe/heroe.component';
 import { HomeComponent } from './pages/home/home.component';
-import { ListadoComponent } from './pages/listado/listado.component';
 import { HoroesRoutignModule } from './horoes-routign.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { ListadoComponent } from './pages/listado/listado.component';
 import { MaterialModule } from '../material/material.module';
+import { HeroeTarjetaComponent } from './components/heroe-tarjeta/heroe-tarjeta.component';
+import { ImagesPipe } from './pipes/images.pipe';
+
+
 
 
 @NgModule({
@@ -16,13 +20,17 @@ import { MaterialModule } from '../material/material.module';
     BuscararComponent,
     HeroeComponent,
     HomeComponent,
-    ListadoComponent
+    ListadoComponent,
+    HeroeTarjetaComponent,
+    ImagesPipe,
+    
   ],
   imports: [
     CommonModule,
-    HoroesRoutignModule,
     FlexLayoutModule,
+    HoroesRoutignModule,                                
     MaterialModule
   ]
+  
 })
 export class HeroesModule { }
