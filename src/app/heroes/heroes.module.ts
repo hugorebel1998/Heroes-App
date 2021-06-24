@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { AgregarComponent } from './pages/agregar/agregar.component';
 import { BuscararComponent } from './pages/buscarar/buscarar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -10,7 +11,6 @@ import { ListadoComponent } from './pages/listado/listado.component';
 import { MaterialModule } from '../material/material.module';
 import { HeroeTarjetaComponent } from './components/heroe-tarjeta/heroe-tarjeta.component';
 import { ImagesPipe } from './pipes/images.pipe';
-
 
 
 
@@ -26,10 +26,11 @@ import { ImagesPipe } from './pipes/images.pipe';
     
   ],
   imports: [
+    FormsModule,
     CommonModule,
     FlexLayoutModule,
     HoroesRoutignModule,                                
-    MaterialModule
+    MaterialModule,
   ]
   
 })

@@ -1,1 +1,21 @@
-<h3>Buscar</h3>
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <h1>Buscar Superhéroe</h1>
+        <mat-divider></mat-divider>
+        <mat-form-field class="example-full-width">
+            <mat-label>Buscar heroe</mat-label>
+            <input type="text" 
+                   placeholder="Pick one"
+                   aria-label="Number"
+                   matInput 
+                   [(ngModel)]="termino"
+                [matAutocomplete]="auto"
+                (input)="buscador()">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let heroe of heroes" >
+                    {{heroe.superhero}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+</div>
