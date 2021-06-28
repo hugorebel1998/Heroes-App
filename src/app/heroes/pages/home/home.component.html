@@ -1,3 +1,37 @@
-<h2>Heroes Home</h2>
-<hr>
-<router-outlet></router-outlet>
+<mat-sidenav-container fullscreen>
+    <mat-sidenav #sidenav mode="push">
+        <mat-toolbar color="warn">
+            <small>Menú</small>
+            <small class="espacio"></small>
+            <button mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>home</mat-icon>
+            </button>
+        </mat-toolbar>
+        <mat-nav-list>
+            <a routerLink="./buscar" mat-list-item (click)="sidenav.toggle()">
+                <mat-icon mat-list-icon>search</mat-icon>
+                <small>Buscar superhéores</small>
+            </a>
+            <a routerLink="./agregar" mat-list-item (click)="sidenav.toggle()">
+                <mat-icon mat-list-icon>perm_identity</mat-icon>
+                <small>Agregar</small>
+            </a>
+            <a routerLink="./listadoHeroes" mat-list-item (click)="sidenav.toggle()">
+                <mat-icon mat-list-icon>list</mat-icon>
+                <small>Lista de superhéores</small>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-toolbar>
+        <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <small class="espacio"></small>
+        <button mat-stroked-button color="warn">
+            Logout
+        </button>
+    </mat-toolbar>
+    <div class="container mt-4">
+        <router-outlet></router-outlet>
+    </div>
+</mat-sidenav-container>
