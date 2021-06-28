@@ -13,17 +13,20 @@ export class HeroesService {
   constructor(private htt:HttpClient) { }
 
   getHeroes():Observable<Heroes[]>{
-
     const url = `${this.apiUrl}/heroes`;
     return this.htt.get<Heroes[]>(url);
   //  return this.htt.get<Heroes[]>('http://localhost:3000/heroes');
   }
 
   getHeroeId(id:string):Observable<Heroes>{
-    // return this.htt.get<Heroes>(`http://localhost:3000/heroes/${id}`);
     const url = `${this.apiUrl}/heroes/${id}`;
     return this.htt.get<Heroes>(url);
+    // return this.htt.get<Heroes>(`http://localhost:3000/heroes/${id}`);
+  }
 
+  getSugerencias(termino:string):Observable<Heroes[]>{
+    const url = `${this.apiUrl}/heroes?q=${termino}&_limit=6`;
+    return this.htt.get<Heroes[]>(url);
 
   }
 }
