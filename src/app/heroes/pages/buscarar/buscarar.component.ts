@@ -30,7 +30,7 @@ export class BuscararComponent implements OnInit {
       //  console.log(event.option.value);
       if(!event.option.value){
         // console.log("No se regreso ningun valor");
-        this.heroeSeleccionado === undefined;
+        this.heroeSeleccionado = undefined;
         return;
       }
 
