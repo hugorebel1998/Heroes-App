@@ -10,6 +10,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     min-height: 840px ;
 }
 
-.item{
-    align-self:flex-end;
+.botones-op{
+    position: absolute;
+    left: 12px;
+    right: 0px;
+    bottom: 0px;
+    height: 55px;
+    
 }
