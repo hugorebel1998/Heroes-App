@@ -29,4 +29,15 @@ export class HeroesService {
     return this.htt.get<Heroes[]>(url);
 
   }
+
+  //Metodo para guardar un registro
+  guardarHeroe(heroe:Heroes):Observable<Heroes>{
+    return this.htt.post<Heroes>(`http://localhost:3000/heroes`, heroe);
+  }
+
+  //Metodo para actualizar un registro
+  actualizarHeroe(heroe:Heroes):Observable<Heroes>{
+    return this.htt.put<Heroes>(`http://localhost:3000/heroes`, heroe);
+  }
+  
 }
