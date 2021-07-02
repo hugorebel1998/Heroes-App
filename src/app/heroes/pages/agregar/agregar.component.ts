@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Heroes,Publisher } from '../../interface/heroes.interface';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Heroes, Publisher } from '../../interface/heroes.interface';
 import { HeroesService } from '../../services/heroes.service';
 import { switchMap } from 'rxjs/operators';
 
@@ -8,6 +8,11 @@ import { switchMap } from 'rxjs/operators';
   selector: 'app-agregar',
   templateUrl: './agregar.component.html',
   styles: [
+    `
+    img{
+      border-radius: 1rem;
+    }
+    `
   ]
 })
 export class AgregarComponent implements OnInit {
@@ -23,35 +28,56 @@ export class AgregarComponent implements OnInit {
     }
   ]
 
-  heroe:Heroes = {
-    superhero :'',
+  heroe: Heroes = {
+    superhero: '',
     publisher: Publisher.DCComics,
     alter_ego: '',
-    first_appearance:'',
+    first_appearance: '',
     characters: '',
-    alt_img:''
+    alt_img: ''
   }
 
 
-  constructor( private heroeServive:HeroesService,
-               private activatedRoute:ActivatedRoute) { }
+  constructor(private heroeServive: HeroesService,
+             private activatedRoute: ActivatedRoute,
+             private router:Router
+   ) { }
 
   ngOnInit(): void {
     // Verificar el url
-    this.activatedRoute.params.subscribe(({id}) => console.log(id));
+    // console.log(this.router.url.includes('editar'))
+    if(!this.router.url.includes('editar')){
+    return;
+    }else{
+      this.activatedRoute.params
+        .pipe(
+          switchMap(({ id }) => this.heroeServive.getHeroeId(id))
+        )
+        .subscribe(heroe => this.heroe = heroe)
+
+    }
+    
+      
   }
 
 
-  guardarHeroe(){
+  guardarHeroe() {
 
-    if(this.heroe.superhero!.trim().length  === 0)
-    return;
+    if (this.heroe.superhero!.trim().length === 0)
+      return;
 
-    this.heroeServive.guardarHeroe(this.heroe)
-    .subscribe((heroe) => {
-      console.log("Respuesta", heroe)
-    })
+    if (this.heroe.id) {
+      this.heroeServive.actualizarHeroe(this.heroe)
+        .subscribe((heroe) => {
+        this.router.navigate(['/heroes/listadoHeroes']);
+        })
+        
 
-    
+    } else {
+      this.heroeServive.guardarHeroe(this.heroe)
+        .subscribe(heroe => {
+        this.router.navigate(['/heroes/listadoHeroes'])
+        })
+    }
   }
 }

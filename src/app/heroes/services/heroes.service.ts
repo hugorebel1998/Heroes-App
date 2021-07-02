@@ -37,7 +37,7 @@ export class HeroesService {
 
   //Metodo para actualizar un registro
   actualizarHeroe(heroe:Heroes):Observable<Heroes>{
-    return this.htt.put<Heroes>(`http://localhost:3000/heroes`, heroe);
+    return this.htt.put<Heroes>(`http://localhost:3000/heroes/${heroe.id}`, heroe);
   }
   
 }
