@@ -7,6 +7,14 @@ import { HeroesService } from '../../services/heroes.service';
   selector: 'app-buscarar',
   templateUrl: './buscarar.component.html',
   styles: [
+    `
+    .texto-buscar-heroe{
+      font-family: 'Tangerine', serif;
+      font-size: 48px;
+      text-shadow: 4px 4px 4px #aaa;
+
+    }
+    `
   ]
 })
 export class BuscararComponent implements OnInit {
