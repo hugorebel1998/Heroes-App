@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Heroes, Publisher } from '../../interface/heroes.interface';
 import { HeroesService } from '../../services/heroes.service';
 import { switchMap } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 // import Swal from 'sweetalert2';
 
@@ -43,7 +44,8 @@ export class AgregarComponent implements OnInit {
   constructor(private heroeServive: HeroesService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private alert: MatSnackBar
+    private alert: MatSnackBar,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
