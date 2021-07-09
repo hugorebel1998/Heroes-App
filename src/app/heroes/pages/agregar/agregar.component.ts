@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Heroes, Publisher } from '../../interface/heroes.interface';
 import { HeroesService } from '../../services/heroes.service';
 import { switchMap } from 'rxjs/operators';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-agregar',
@@ -39,16 +40,16 @@ export class AgregarComponent implements OnInit {
 
 
   constructor(private heroeServive: HeroesService,
-             private activatedRoute: ActivatedRoute,
-             private router:Router
-   ) { }
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     // Verificar el url
     // console.log(this.router.url.includes('editar'))
-    if(!this.router.url.includes('editar')){
-    return;
-    }else{
+    if (!this.router.url.includes('editar')) {
+      return;
+    } else {
       this.activatedRoute.params
         .pipe(
           switchMap(({ id }) => this.heroeServive.getHeroeId(id))
@@ -56,8 +57,6 @@ export class AgregarComponent implements OnInit {
         .subscribe(heroe => this.heroe = heroe)
 
     }
-    
-      
   }
 
 
@@ -69,15 +68,39 @@ export class AgregarComponent implements OnInit {
     if (this.heroe.id) {
       this.heroeServive.actualizarHeroe(this.heroe)
         .subscribe((heroe) => {
-        this.router.navigate(['/heroes/listadoHeroes']);
+          console.log("Actualizacion", heroe)
+          this.router.navigate(['/heroes/listadoHeroes']);
+          Swal.fire({
+            position: 'center',
+            icon: 'info',
+            title: 'Heroe actualizado con exito',
+            showConfirmButton: true,
+            timer: 2000
+          });
         })
-        
+
 
     } else {
       this.heroeServive.guardarHeroe(this.heroe)
         .subscribe(heroe => {
-        this.router.navigate(['/heroes/listadoHeroes'])
+          console.log("Creado", heroe);
+          this.router.navigate(['/heroes/listadoHeroes'])
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Éxito nuevo heroe creado',
+            showConfirmButton: true,
+            timer: 2000
+          });
         })
     }
+  }
+
+  borrarHeroe() {
+    this.heroeServive.borrarHeroe(this.heroe.id!)
+      .subscribe(heroe => {
+        console.log(heroe)
+
+      })
   }
 }

@@ -39,5 +39,9 @@ export class HeroesService {
   actualizarHeroe(heroe:Heroes):Observable<Heroes>{
     return this.htt.put<Heroes>(`http://localhost:3000/heroes/${heroe.id}`, heroe);
   }
+  //Metodo para borar un registro
+  borrarHeroe(id:string):Observable<[]>{
+    return this.htt.delete<[]>(`http://localhost:3000/heroes/${id}`);
+  }
   
 }

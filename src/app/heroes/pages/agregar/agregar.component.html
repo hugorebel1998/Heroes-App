@@ -57,6 +57,17 @@
                           Guardar
                         </button>
                     </div>
+                    <div class="col-md-12 mt-3">
+                        <button *ngIf="heroe.id"
+                         mat-raised-button
+                          color="warn"
+                          fxFlex="100"
+                          fxLayout-xs="50"
+                          (click)="borrarHeroe()">
+                          <mat-icon>delete_outline</mat-icon> 
+                          Borrar
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 mt-3">
