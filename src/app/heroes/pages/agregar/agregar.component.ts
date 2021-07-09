@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Heroes, Publisher } from '../../interface/heroes.interface';
 import { HeroesService } from '../../services/heroes.service';
 import { switchMap } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-agregar',
@@ -70,22 +71,53 @@ export class AgregarComponent implements OnInit {
       this.heroeServive.actualizarHeroe(this.heroe)
         .subscribe((heroe) => {
         this.router.navigate(['/heroes/listadoHeroes']);
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Heroe actualizado con éxito',
+          showConfirmButton: true,
+          timer: 2000
+        });
         })
         
 
     } else {
       this.heroeServive.guardarHeroe(this.heroe)
         .subscribe(heroe => {
-        this.router.navigate(['/heroes/listadoHeroes'])
+          this.router.navigate(['/heroes/listadoHeroes'])
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Heroe creado con éxito',
+            showConfirmButton: true,
+            timer: 2000
+          });
         })
     }
   }
   borrarHeroe(){
     this.heroeServive.eliminarHeroe(this.heroe.id!)
-    .subscribe((heroe) => {
+    .subscribe(heroe => {
       console.log(heroe)
 
       this.router.navigate(['/heroes/listadoHeroes'])
+      // Swal.fire({
+      //   title: 'Estas seguro?',
+      //   text: "No puedes eliminar este heroe!",
+      //   icon: 'warning',
+      //   showCancelButton: true,
+      //   confirmButtonColor: '#3085d6',
+      //   cancelButtonColor: '#d33',
+      //   confirmButtonText: 'Si, Eliminar heroe!'
+      // }).then((heroe) => {
+      //   if (heroe.isConfirmed) {
+      //     Swal.fire(
+      //       'Eliminando!',
+      //       'Heroe.',
+      //       'success'
+      //     )
+      //   }
+      // })
     })
 
   }
