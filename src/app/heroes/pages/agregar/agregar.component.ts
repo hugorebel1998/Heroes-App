@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Heroes, Publisher } from '../../interface/heroes.interface';
 import { HeroesService } from '../../services/heroes.service';
 import { switchMap } from 'rxjs/operators';
-import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
+// import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-agregar',
@@ -40,16 +41,17 @@ export class AgregarComponent implements OnInit {
 
 
   constructor(private heroeServive: HeroesService,
-             private activatedRoute: ActivatedRoute,
-             private router:Router
-   ) { }
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private alert: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     // Verificar el url
     // console.log(this.router.url.includes('editar'))
-    if(!this.router.url.includes('editar')){
-    return;
-    }else{
+    if (!this.router.url.includes('editar')) {
+      return;
+    } else {
       this.activatedRoute.params
         .pipe(
           switchMap(({ id }) => this.heroeServive.getHeroeId(id))
@@ -57,8 +59,7 @@ export class AgregarComponent implements OnInit {
         .subscribe(heroe => this.heroe = heroe)
 
     }
-    
-      
+
   }
 
 
@@ -70,57 +71,33 @@ export class AgregarComponent implements OnInit {
     if (this.heroe.id) {
       this.heroeServive.actualizarHeroe(this.heroe)
         .subscribe((heroe) => {
-        this.router.navigate(['/heroes/listadoHeroes']);
-        Swal.fire({
-          position: 'center',
-          icon: 'warning',
-          title: 'Heroe actualizado con éxito',
-          showConfirmButton: true,
-          timer: 2000
-        });
+          this.router.navigate(['/heroes/listadoHeroes']);
+          this.alerta(`Se actualizo ${this.heroe.superhero}`, "Aceptar");
         })
-        
+
 
     } else {
       this.heroeServive.guardarHeroe(this.heroe)
         .subscribe(heroe => {
           this.router.navigate(['/heroes/listadoHeroes'])
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Heroe creado con éxito',
-            showConfirmButton: true,
-            timer: 2000
-          });
+          this.alerta(`Nuevo heroe creado ${this.heroe.superhero}`, "Aceptar")
         })
     }
   }
-  borrarHeroe(){
+  borrarHeroe() {
     this.heroeServive.eliminarHeroe(this.heroe.id!)
-    .subscribe(heroe => {
-      console.log(heroe)
-
-      this.router.navigate(['/heroes/listadoHeroes'])
-      // Swal.fire({
-      //   title: 'Estas seguro?',
-      //   text: "No puedes eliminar este heroe!",
-      //   icon: 'warning',
-      //   showCancelButton: true,
-      //   confirmButtonColor: '#3085d6',
-      //   cancelButtonColor: '#d33',
-      //   confirmButtonText: 'Si, Eliminar heroe!'
-      // }).then((heroe) => {
-      //   if (heroe.isConfirmed) {
-      //     Swal.fire(
-      //       'Eliminando!',
-      //       'Heroe.',
-      //       'success'
-      //     )
-      //   }
-      // })
-    })
+      .subscribe(heroe => {
+        console.log(heroe)
+        this.router.navigate(['/heroes/listadoHeroes'])
+      })
 
   }
 
-  
+  alerta(mensaje: string, action: string) {
+    this.alert.open(mensaje, action, {
+      duration: 2000
+
+    });
+  }
+
 }
