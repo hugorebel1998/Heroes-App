@@ -3,7 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Heroes, Publisher } from '../../interface/heroes.interface';
 import { HeroesService } from '../../services/heroes.service';
 import { switchMap } from 'rxjs/operators';
-import Swal from 'sweetalert2'
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+// import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-agregar',
@@ -41,7 +43,9 @@ export class AgregarComponent implements OnInit {
 
   constructor(private heroeServive: HeroesService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private alert: MatSnackBar,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -68,39 +72,33 @@ export class AgregarComponent implements OnInit {
     if (this.heroe.id) {
       this.heroeServive.actualizarHeroe(this.heroe)
         .subscribe((heroe) => {
-          console.log("Actualizacion", heroe)
           this.router.navigate(['/heroes/listadoHeroes']);
-          Swal.fire({
-            position: 'center',
-            icon: 'info',
-            title: 'Heroe actualizado con exito',
-            showConfirmButton: true,
-            timer: 2000
-          });
+          this.alerta(`Se actualizo ${this.heroe.superhero}`, "Aceptar");
         })
 
 
     } else {
       this.heroeServive.guardarHeroe(this.heroe)
         .subscribe(heroe => {
-          console.log("Creado", heroe);
           this.router.navigate(['/heroes/listadoHeroes'])
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Éxito nuevo heroe creado',
-            showConfirmButton: true,
-            timer: 2000
-          });
+          this.alerta(`Nuevo heroe creado ${this.heroe.superhero}`, "Aceptar")
         })
     }
   }
-
   borrarHeroe() {
     this.heroeServive.borrarHeroe(this.heroe.id!)
       .subscribe(heroe => {
         console.log(heroe)
-
+        this.router.navigate(['/heroes/listadoHeroes'])
       })
+
   }
+
+  alerta(mensaje: string, action: string) {
+    this.alert.open(mensaje, action, {
+      duration: 2000
+
+    });
+  }
+
 }

@@ -47,14 +47,21 @@
                     </div>
 
                     <div class="col-md-12">
-                        <button
+                        <button fxFlex="100" fxLayout-xs="50"
                          mat-raised-button
                           color="primary"
-                          fxFlex="100"
-                          fxLayout-xs="50"
                           (click)="guardarHeroe()">
                           <mat-icon>check</mat-icon> 
                           Guardar
+                        </button>
+                    </div>    
+                    <div class="col-md-12 mt-3" *ngIf="heroe.id">
+                        <button fxFlex="100" fxLayout-xs="50"
+                         mat-raised-button
+                          color="warn"
+                          (click)="borrarHeroe()">
+                          <mat-icon>remove</mat-icon> 
+                          Eliminar
                         </button>
                     </div>
                     <div class="col-md-12 mt-3">
