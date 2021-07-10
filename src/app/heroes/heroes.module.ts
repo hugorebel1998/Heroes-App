@@ -11,6 +11,7 @@ import { ListadoComponent } from './pages/listado/listado.component';
 import { MaterialModule } from '../material/material.module';
 import { HeroeTarjetaComponent } from './components/heroe-tarjeta/heroe-tarjeta.component';
 import { ImagesPipe } from './pipes/images.pipe';
+import { ConfirmarComponent } from './components/confirmar/confirmar.component';
 
 
 
@@ -23,6 +24,7 @@ import { ImagesPipe } from './pipes/images.pipe';
     ListadoComponent,
     HeroeTarjetaComponent,
     ImagesPipe,
+    ConfirmarComponent,
     
   ],
   imports: [

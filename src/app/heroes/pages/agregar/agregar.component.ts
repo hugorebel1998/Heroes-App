@@ -5,6 +5,7 @@ import { HeroesService } from '../../services/heroes.service';
 import { switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmarComponent } from '../../components/confirmar/confirmar.component';
 // import Swal from 'sweetalert2';
 
 @Component({
@@ -86,19 +87,22 @@ export class AgregarComponent implements OnInit {
     }
   }
   borrarHeroe() {
-    this.heroeServive.borrarHeroe(this.heroe.id!)
-      .subscribe(heroe => {
-        console.log(heroe)
-        this.router.navigate(['/heroes/listadoHeroes'])
-      })
+
+    this.dialog.open(ConfirmarComponent,{
+      width: '300px',
+      data: {...this.heroe}
+    })
+    // this.heroeServive.borrarHeroe(this.heroe.id!)
+    //   .subscribe(heroe => {
+    //     console.log(heroe)
+    //     this.router.navigate(['/heroes/listadoHeroes'])
+    //   });
 
   }
 
   alerta(mensaje: string, action: string) {
     this.alert.open(mensaje, action, {
       duration: 2000
-
     });
   }
-
 }
