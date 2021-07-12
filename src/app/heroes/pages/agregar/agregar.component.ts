@@ -88,9 +88,11 @@ export class AgregarComponent implements OnInit {
   }
   borrarHeroe() {
 
+    
+
     this.dialog.open(ConfirmarComponent,{
       width: '300px',
-      data: {...this.heroe}
+      data: this.heroe
     })
     // this.heroeServive.borrarHeroe(this.heroe.id!)
     //   .subscribe(heroe => {
