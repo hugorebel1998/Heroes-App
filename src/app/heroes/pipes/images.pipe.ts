@@ -8,7 +8,7 @@ import { Heroes } from '../interface/heroes.interface';
 export class ImagesPipe implements PipeTransform {
 
   transform(heroe: Heroes): string {
-    console.log("Se disparo la imagen");
+    // console.log("Se disparo la imagen");
 
     if (!heroe.id && !heroe.alt_img) {
       return `assets/no-image.png`;

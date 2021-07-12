@@ -88,18 +88,22 @@ export class AgregarComponent implements OnInit {
   }
   borrarHeroe() {
 
-    
-
-    this.dialog.open(ConfirmarComponent,{
+    const dialog = this.dialog.open(ConfirmarComponent, {
       width: '300px',
       data: this.heroe
-    })
-    // this.heroeServive.borrarHeroe(this.heroe.id!)
-    //   .subscribe(heroe => {
-    //     console.log(heroe)
-    //     this.router.navigate(['/heroes/listadoHeroes'])
-    //   });
+    });
 
+    dialog.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.heroeServive.borrarHeroe(this.heroe.id!)
+            .subscribe(heroe => {
+              this.router.navigate(['/heroes/listadoHeroes'])
+              this.alerta("Heroe eliminado con éxito", "Aceptar");
+            })
+        }
+      }
+    )
   }
 
   alerta(mensaje: string, action: string) {
